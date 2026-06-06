@@ -10,14 +10,29 @@ workflows:
         script: |
           npm install
 
-      - name: Fix Capacitor permissions
+      - name: Install CocoaPods
         script: |
-          chmod +x node_modules/.bin/cap
+          cd ios/App
+          pod install
 
-      - name: Capacitor version
-        script: |
-          npx cap --version
-
-      - name: Sync Capacitor iOS
+      - name: Capacitor sync iOS
         script: |
           npx cap sync ios
+
+      - name: Archive iOS app
+        script: |
+          xcodebuild -workspace ios/App/App.xcworkspace \
+          -scheme App \
+          -configuration Release \
+          archive \
+          -archivePath $CM_BUILD_DIR/build/App.xcarchive
+
+      - name: Export IPA
+        script: |
+          xcodebuild -exportArchive \
+          -archivePath $CM_BUILD_DIR/build/App.xcarchive \
+          -exportOptionsPlist ios/App/ExportOptions.plist \
+          -exportPath $CM_BUILD_DIR/build/ipa
+
+    artifacts:
+      - build/ipa/*.ipa
