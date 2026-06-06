@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "mkdir -p www && echo '<h1>Capacitor App</h1>' > www/index.html"
   },
   "keywords": [],
   "author": "",
