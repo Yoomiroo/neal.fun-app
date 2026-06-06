@@ -1,6 +1,6 @@
 workflows:
   ios-release:
-    name: iOS Release (Capacitor + SPM)
+    name: iOS Release (Capacitor SPM)
 
     environment:
       xcode: latest
@@ -18,9 +18,13 @@ workflows:
         script: |
           npm run build
 
+      - name: Fix Capacitor permissions
+        script: |
+          chmod -R +x node_modules/.bin
+
       - name: Sync Capacitor iOS
         script: |
-          npx cap sync ios
+          npm exec cap sync ios
 
       - name: Show iOS structure (debug)
         script: |
