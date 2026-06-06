@@ -1,0 +1,9 @@
+{
+  "appId": "com.nealfun.app",
+  "appName": "neal.fun",
+  "webDir": "www",
+  "server": {
+    "url": "https://neal.fun",
+    "cleartext": false
+  }
+}
